@@ -1,7 +1,7 @@
 ignore_files:
   - cypress/
   - .eslintignore
-  - eslintrc.json
+  - .eslintrc.json
   - .gitignore
   - cypress.json
   - README.md
