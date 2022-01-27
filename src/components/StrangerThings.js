@@ -1,21 +1,22 @@
 import React from 'react';
-
 import CharactersService from '../services/charactersAPI';
 import Table from './Table';
 
 require('dotenv').config();
+
+const { REACT_APP_DEVELOPMENT } = process.env;
 
 const getRealityClass = (hereIsTheUpsideDownWorld) => (
   hereIsTheUpsideDownWorld ? 'upside-down' : 'stranger-things'
 );
 
 const strangerThingsConfig = {
-  url: process.env.REACT_APP_HAWKINS_URL,
+  url: process.env.REACT_APP_HAWKINS_URL || 'http://localhost:3002',
   timeout: process.env.REACT_APP_HAWKINS_TIMEOUT,
 };
 
 const upsideDownConfig = {
-  url: process.env.REACT_APP_UPSIDEDOWN_URL,
+  url: process.env.REACT_APP_UPSIDEDOWN_URL || 'http://localhost:3003',
   timeout: process.env.REACT_APP_UPSIDEDOWN_TIMEOUT,
 };
 
@@ -41,6 +42,8 @@ class StrangerThings extends React.Component {
 
     this.nextPage = this.nextPage.bind(this);
     this.previousPage = this.previousPage.bind(this);
+
+    this.renderServerEnv = this.renderServerEnv(this);
   }
 
   handleInput(event) {
@@ -106,19 +109,30 @@ class StrangerThings extends React.Component {
     );
   }
 
+  renderServerEnv() {
+    return (
+      <div className="strangerfy">
+        <div>
+          <h2>Em desenvolvimento</h2>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const {
       hereIsTheUpsideDownWorld, characterName, characters, page,
     } = this.state;
 
-    const underDevelopment = process.env.REACT_APP_DEVELOPMENT;
     return (
       <div
         className={ `reality ${getRealityClass(
           hereIsTheUpsideDownWorld,
         )}` }
       >
-        {underDevelopment === 'true' && <p>Em desenvolvimento</p>}
+        {REACT_APP_DEVELOPMENT === 'false'
+          ? this.renderServerEnv
+          : null }
         <div className="content strangerfy">
           <div className="change-reality">
             <button type="button" onClick={ this.changeRealityClick }>
