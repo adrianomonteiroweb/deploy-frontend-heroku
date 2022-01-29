@@ -5,7 +5,8 @@ import Table from './Table';
 require('dotenv').config();
 
 const { REACT_APP_DEVELOPMENT } = process.env;
-
+const development = REACT_APP_DEVELOPMENT;
+console.log(development);
 const getRealityClass = (hereIsTheUpsideDownWorld) => (
   hereIsTheUpsideDownWorld ? 'upside-down' : 'stranger-things'
 );
@@ -123,14 +124,13 @@ class StrangerThings extends React.Component {
     const {
       hereIsTheUpsideDownWorld, characterName, characters, page,
     } = this.state;
-
     return (
       <div
         className={ `reality ${getRealityClass(
           hereIsTheUpsideDownWorld,
         )}` }
       >
-        {REACT_APP_DEVELOPMENT === 'false'
+        {development === 'dev'
           ? this.renderServerEnv
           : null }
         <div className="content strangerfy">
