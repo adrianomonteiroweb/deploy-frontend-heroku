@@ -42,7 +42,7 @@ class StrangerThings extends React.Component {
     this.nextPage = this.nextPage.bind(this);
     this.previousPage = this.previousPage.bind(this);
 
-    this.renderServerEnv = this.renderServerEnv(this);
+    this.devMode = this.devMode(this);
   }
 
   handleInput(event) {
@@ -108,7 +108,7 @@ class StrangerThings extends React.Component {
     );
   }
 
-  renderServerEnv() {
+  devMode() {
     return (
       <div className="strangerfy">
         <div>
@@ -128,8 +128,8 @@ class StrangerThings extends React.Component {
           hereIsTheUpsideDownWorld,
         )}` }
       >
-        {development === 'dev'
-          ? this.renderServerEnv
+        {development === 'true'
+          ? this.devMode
           : null }
         <div className="content strangerfy">
           <div className="change-reality">
